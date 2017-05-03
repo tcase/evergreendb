@@ -4,176 +4,175 @@ Notes:
     - Photo handling TBD
 
 Children {
-ID : Guid <pkey>,
-Chinese Name : string,
-Pinyin Name : string,
-English Name : string,
-Nickname : string,
-Sex : tinyint,
-DOB : date,
-Child Photo : pointer,
-Abandonment Date : date,
-Program Entry Date : date,
-Program Departure Date : date,
-Program Departure Reason : string,
-Child History : bigstring,
-Is Active : bool,
-Medical History : bigstring,
+ID : CHAR(16) <pkey>,
+ChineseName : VARCHAR(max),
+PinyinName : VARCHAR(max),
+EnglishName : VARCHAR(max),
+Nickname : VARCHAR(max),
+Sex : CHAR(1),
+DOB : DATE,
+ChildPhoto : BLOB,
+AbandonmentDate : DATE,
+ProgramEntryDate : DATE,
+ProgramDepartureDate : DATE,
+ProgramDepartureReason : VARCHAR(max),
+ChildHistory : VARCHAR(max),
+IsActive : BOOL,
+MedicalHistory : VARCHAR(max),
 }
 
 AssessmentTypes {
-ID : Guid <pkey>,
-Assessment Name : string
+ID : CHAR(16) <pkey>,
+AssessmentName : VARCHAR(max)
 }
 
 ChildPartners {
-Child ID : Guid <fkey>,
-Partner ID : Guid <fkey>,
-Start Date : date,
-End Date : date,
-Notes : bigstring
+ChildID : CHAR(16) <fkey>,
+PartnerID : CHAR(16) <fkey>,
+StartDate : DATE,
+EndDate : DATE,
+Notes : VARCHAR(max)
 }
 
 Partners {
-ID : Guid <pkey>,
-Partner Name : string,
-email : string,
-Address : string,
-Phone : string,
-notes : bigstring
+ID : CHAR(16) <pkey>,
+PartnerName : VARCHAR(max),
+Email : VARCHAR(max),
+Address : VARCHAR(max),
+Phone : VARCHAR(max),
+Notes : VARCHAR(max)
 }
 
 ChildNotes {
-Child ID : Guid <fkey>,
-Note date : date,
-Note : bigstring,
+ChildID : CHAR(16) <fkey>,
+NoteDate : DATE,
+Note : VARCHAR(max),
 }
 
 ChildCamps {
-Child ID : Guid <fkey>,
-Camp ID : Guid <fkey>,
-Camp Start Date : date,
-Notes : bigstring,
+ChildID : CHAR(16) <fkey>,
+CampID : CHAR(16) <fkey>,
+CampStartDate : DATE,
+Notes : VARCHAR(max),
 }
 
 
 
 Camps {
-ID : Guid <pkey>,
-Camp Name : string,
+ID : CHAR(16) <pkey>,
+CampName : VARCHAR(max),
 }
 
 ChildAssessments {
-Child ID : Guid <fkey>,
-Assessment ID : Guid <fkey>,
-Assessment date : date,
-Notes : bigstring,
+ChildID : CHAR(16) <fkey>,
+AssessmentID : CHAR(16) <fkey>,
+AssessmentDate : DATE,
+Notes : VARCHAR(max),
 }
 
 ChildCaregiverHistory {
-Child ID : Guid <fkey>,
-Caregiver ID : Guid <fkey>,
-Start Date : date,
-End Date : date,
-Notes : bigstring,
+ChildID : CHAR(16) <fkey>,
+CaregiverID : CHAR(16) <fkey>,
+StartDate : DATE,
+EndDate : DATE,
+Notes : VARCHAR(max),
 }
 
 ChildMeasurements {
-Child ID : Guid <fkey>,
-MeasurementID : Guid <fkey>,
-Measurement Date : date,
-Measurement Value : float,
+ChildID : CHAR(16) <fkey>,
+MeasurementID : CHAR(16) <fkey>,
+MeasurementDate : DATE,
+MeasurementValue : FLOAT,
 }
 
 ChildMilestones {
-Child ID : Guid <fkey>,
-Milestone ID : Guid <fkey>,
-Date Reached : date,
+ChildID : CHAR(16) <fkey>,
+MilestoneID : CHAR(16) <fkey>,
+DateReached : DATE,
 }
 
 MilestoneTypes {
-ID : Guid <pkey>,
-Milestone Name : string,
-Milestone Chinese Name : string,
-Milestone Pinyin Name : string,
-Milestone Category : Guid <fkey>,
+ID : CHAR(16) <pkey>,
+MilestoneName : VARCHAR(max),
+MilestoneChineseName : VARCHAR(max),
+MilestonePinyinName : VARCHAR(max),
+MilestoneCategory : CHAR(16) <fkey>,
 }
 
 MilestoneTypeCategories {
-ID : Guid <pkey>,
-Milestone Category Name : string,
-Milestone Category Chinese Name : string,
-Milestone Category Pinyin Name : string,
+ID : CHAR(16) <pkey>,
+MilestoneCategoryName : VARCHAR(max),
+MilestoneCategoryChinese Name : VARCHAR(max),
+MilestoneCategoryPinyin Name : VARCHAR(max),
 }
 
 ChildDoctorVisitHistory {
-Child ID : Guid <fkey>,
-Doctor ID : Guid <fkey>,
-Visit Date : date,
-Notes : bigstring,
+ChildID : CHAR(16) <fkey>,
+DoctorID : CHAR(16) <fkey>,
+VisitDate : DATE,
+Notes : VARCHAR(max),
 }
 
 DoctorTypes {
-ID : Guid <pkey>,
-DoctorType : string,
+ID : CHAR(16) <pkey>,
+DoctorType : VARCHAR(max),
 }
 
 Doctors {
-ID : Guid <pkey>,
-Doctor Type : Guid <fkey>,
-Facility Name : string,
-Facility Chinese Name : string,
-Facility Pinyin Name : string,
-Doctor Name : string,
-Doctor Chinese Name : string,
-Doctor Pinyin Name : string,
+ID : CHAR(16) <pkey>,
+DoctorType : CHAR(16) <fkey>,
+FacilityName : VARCHAR(max),
+FacilityChineseName : VARCHAR(max),
+FacilityPinyinName : VARCHAR(max),
+DoctorName : VARCHAR(max),
+DoctorChineseName : VARCHAR(max),
+DoctorPinyinName : VARCHAR(max),
 }
 
 MeasurementTypes {
-ID : Guid <pkey>,
-Measurement Name : string,
-Measurement Chinese Name : string,
-Measurement Pinyin Name : string,
-Measurement Units : string,
+ID : CHAR(16) <pkey>,
+MeasurementName : VARCHAR(max),
+MeasurementChineseName : VARCHAR(max),
+MeasurementPinyinName : VARCHAR(max),
+MeasurementUnits : VARCHAR(max),
 }
 
 Caregivers {
-ID : Guid <pkey>,
-Chinese Name : string,
-Pinyin Name : string,
-English Name : string,
+ID : CHAR(16) <pkey>,
+ChineseName : VARCHAR(max),
+PinyinName : VARCHAR(max),
+EnglishName : VARCHAR(max),
 }
 
 ChildMedicalConditions {
-Child ID : Guid <fkey>,
-Condition ID : Guid <fkey>,
+ChildID : CHAR(16) <fkey>,
+ConditionID : CHAR(16) <fkey>,
 }
 
 MedicalConditions {
-ID : Guid <pkey>,
-Condition : string,
-Condition Pinyin : string,
-Condition Chinese : string,
+ID : CHAR(16) <pkey>,
+ConditionName : VARCHAR(max),
+ConditionPinyinName : VARCHAR(max),
+ConditionChineseName : VARCHAR(max),
 }
 
 ChildMedications {
-Child ID : Guid <fkey>,
-Medication ID : Guid <fkey>,
-Is Active : bool,
-Start Date : date,
-End Date : date,
-Dosage1 : float,
-Dosage2 : float,
-Dosage3 : float
-
+ChildID : CHAR(16) <fkey>,
+MedicationID : CHAR(16) <fkey>,
+IsActive : BOOL,
+StartDate : DATE,
+EndDate : DATE,
+Dosage1 : FLOAT,
+Dosage2 : FLOAT,
+Dosage3 : FLOAT
 }
 
 Medications {
-ID : Guid <pkey>,
-Condition Name : string,
-Condition Name Chinese : string,
-Condition Name English : string,
-Dose Size (mg) : float,
+ID : CHAR(16) <pkey>,
+MedicationName : VARCHAR(max),
+MedicationNameChinese : VARCHAR(max),
+MedicationNameEnglish : VARCHAR(max),
+DoseInmg : FLOAT,
 }
 
 
