@@ -3,30 +3,118 @@ Notes:
     - Attachments TBD
     - Photo handling TBD
 
-Children {
+-- The databases are basically either entities or relationships.
+
+---------- Entities ----------
+
+Child {
 ID : CHAR(16) <pkey>,
-ChineseName : VARCHAR(255),
-PinyinName : VARCHAR(255),
-EnglishName : VARCHAR(255),
-Nickname : VARCHAR(255),
+EnglishName : NVARCHAR(255),
+ChineseName : NVARCHAR(255),
+PinyinName : NVARCHAR(255),
+Nickname : NVARCHAR(255),
 Sex : CHAR(1),
 DOB : DATE,
 ChildPhoto : BLOB,
 AbandonmentDate : DATE,
 ProgramEntryDate : DATE,
 ProgramDepartureDate : DATE,
-ProgramDepartureReason : VARCHAR(255),
-ChildHistory : VARCHAR(255),
+ProgramDepartureReason : TEXT,
+ChildHistory : TEXT,
 IsActive : BOOL,
-MedicalHistory : VARCHAR(255),
+MedicalHistory : TEXT,
 }
 
-AssessmentTypes {
+Partner {
 ID : CHAR(16) <pkey>,
-AssessmentName : VARCHAR(255)
+EnglishName : NVARCHAR(255),
+ChineseName : NVARCHAR(255),
+PinyinName : NVARCHAR(255),
+Email : NVARCHAR(255),
+Address : NVARCHAR(255),
+Phone : NVARCHAR(255),
+Notes : TEXT
 }
 
-ChildPartners {
+Specialist {
+ID : CHAR(16) <pkey>
+AssessmentSpecialty : NVARCHAR(255),
+EnglishName : NVARCHAR(255),
+ChineseName : NVARCHAR(255),
+PinyinName : NVARCHAR(255)
+}
+
+AssessmentType {
+ID : CHAR(16) <pkey>
+EnglishName : NVARCHAR(255),
+ChineseName : NVARCHAR(255),
+PinyinName : NVARCHAR(255)
+}
+
+MilestoneType {
+ID : CHAR(16) <pkey>,
+MilestoneCategory : CHAR(16) <fkey>,
+EnglishName : NVARCHAR(255),
+ChineseName : NVARCHAR(255),
+PinyinName : NVARCHAR(255),
+}
+
+MilestoneTypeCategory {
+ID : CHAR(16) <pkey>,
+EnglishName : NVARCHAR(255),
+ChineseName : NVARCHAR(255),
+PinyinName : NVARCHAR(255),
+}
+
+DoctorType {
+ID : CHAR(16) <pkey>,
+DoctorType : NVARCHAR(255),
+}
+
+Doctor {
+ID : CHAR(16) <pkey>,
+DoctorType : CHAR(16) <fkey>,
+FacilityEnglishName : NVARCHAR(255),
+FacilityChineseName : NVARCHAR(255),
+FacilityPinyinName : NVARCHAR(255),
+DoctorEnglishName : NVARCHAR(255),
+DoctorChineseName : NVARCHAR(255),
+DoctorPinyinName : NVARCHAR(255),
+}
+
+MeasurementType {
+ID : CHAR(16) <pkey>,
+EnglishName : NVARCHAR(255),
+ChineseName : NVARCHAR(255),
+PinyinName : NVARCHAR(255),
+Units : NVARCHAR(255),
+}
+
+Caregiver {
+ID : CHAR(16) <pkey>,
+EnglishName : NVARCHAR(255),
+ChineseName : NVARCHAR(255),
+PinyinName : NVARCHAR(255),
+}
+
+Camp {
+ID : CHAR(16) <pkey>,
+EnglishCampName : NVARCHAR(255),
+ChineseCampName : NVARCHAR(255),
+PinyinCampName : NVARCHAR(255)
+}
+
+Medication {
+ID : CHAR(16) <pkey>,
+EnglishName : NVARCHAR(255),
+ChineseName : NVARCHAR(255),
+PinyinName : NVARCHAR(255),
+DoseInMilligrams : FLOAT,
+}
+
+-------- Relationships ---------
+
+ChildPartner {
 ChildID : CHAR(16) <fkey>,
 PartnerID : CHAR(16) <fkey>,
 StartDate : DATE,
@@ -34,38 +122,23 @@ EndDate : DATE,
 Notes : TEXT 
 }
 
-Partners {
-ID : CHAR(16) <pkey>,
-PartnerName : VARCHAR(255),
-Email : VARCHAR(255),
-Address : VARCHAR(255),
-Phone : VARCHAR(255),
-Notes : TEXT
-}
-
-ChildNotes {
+ChildNote {
 ChildID : CHAR(16) <fkey>,
 NoteDate : DATE,
 Notes : TEXT,
 }
 
-ChildCamps {
+ChildCamp {
 ChildID : CHAR(16) <fkey>,
 CampID : CHAR(16) <fkey>,
 CampStartDate : DATE,
 Notes : TEXT,
 }
 
-
-
-Camps {
-ID : CHAR(16) <pkey>,
-CampName : VARCHAR(255),
-}
-
-ChildAssessments {
+ChildAssessment {
 ChildID : CHAR(16) <fkey>,
-AssessmentID : CHAR(16) <fkey>,
+SpecialistID : CHAR(16) <fkey>
+AssessmentTypeID : CHAR(16) <fkey>
 AssessmentDate : DATE,
 Notes : TEXT,
 }
@@ -78,32 +151,17 @@ EndDate : DATE,
 Notes : TEXT
 }
 
-ChildMeasurements {
+ChildMeasurement {
 ChildID : CHAR(16) <fkey>,
 MeasurementID : CHAR(16) <fkey>,
 MeasurementDate : DATE,
 MeasurementValue : FLOAT,
 }
 
-ChildMilestones {
+ChildMilestone {
 ChildID : CHAR(16) <fkey>,
 MilestoneID : CHAR(16) <fkey>,
 DateReached : DATE,
-}
-
-MilestoneTypes {
-ID : CHAR(16) <pkey>,
-MilestoneCategory : CHAR(16) <fkey>,
-MilestoneName : VARCHAR(255),
-MilestoneChineseName : VARCHAR(255),
-MilestonePinyinName : VARCHAR(255),
-}
-
-MilestoneTypeCategories {
-ID : CHAR(16) <pkey>,
-MilestoneCategoryName : VARCHAR(255),
-MilestoneCategoryChinese Name : VARCHAR(255),
-MilestoneCategoryPinyin Name : VARCHAR(255),
 }
 
 ChildDoctorVisitHistory {
@@ -112,51 +170,19 @@ DoctorID : CHAR(16) <fkey>,
 VisitDate : DATE,
 Notes : TEXT,
 }
-
-DoctorTypes {
-ID : CHAR(16) <pkey>,
-DoctorType : VARCHAR(255),
-}
-
-Doctors {
-ID : CHAR(16) <pkey>,
-DoctorType : CHAR(16) <fkey>,
-FacilityName : VARCHAR(255),
-FacilityChineseName : VARCHAR(255),
-FacilityPinyinName : VARCHAR(255),
-DoctorName : VARCHAR(255),
-DoctorChineseName : VARCHAR(255),
-DoctorPinyinName : VARCHAR(255),
-}
-
-MeasurementTypes {
-ID : CHAR(16) <pkey>,
-MeasurementName : VARCHAR(255),
-MeasurementChineseName : VARCHAR(255),
-MeasurementPinyinName : VARCHAR(255),
-MeasurementUnits : VARCHAR(255),
-}
-
-Caregivers {
-ID : CHAR(16) <pkey>,
-ChineseName : VARCHAR(255),
-PinyinName : VARCHAR(255),
-EnglishName : VARCHAR(255),
-}
-
-ChildMedicalConditions {
+ChildMedicalCondition {
 ChildID : CHAR(16) <fkey>,
 ConditionID : CHAR(16) <fkey>,
 }
 
-MedicalConditions {
+MedicalCondition {
 ID : CHAR(16) <pkey>,
-ConditionName : VARCHAR(255),
-ConditionPinyinName : VARCHAR(255),
-ConditionChineseName : VARCHAR(255),
+EnglishName : NVARCHAR(255),
+PinyinName : NVARCHAR(255),
+ChineseName : NVARCHAR(255),
 }
 
-ChildMedications {
+ChildMedication {
 ChildID : CHAR(16) <fkey>,
 MedicationID : CHAR(16) <fkey>,
 IsActive : BOOL,
@@ -165,14 +191,6 @@ EndDate : DATE,
 Dosage1 : FLOAT,
 Dosage2 : FLOAT,
 Dosage3 : FLOAT
-}
-
-Medications {
-ID : CHAR(16) <pkey>,
-MedicationName : VARCHAR(255),
-MedicationNameChinese : VARCHAR(255),
-MedicationNameEnglish : VARCHAR(255),
-DoseInmg : FLOAT,
 }
 
 
