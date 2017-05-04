@@ -11,10 +11,10 @@ Notes:
 
 CREATE TABLE IF NOT EXISTS Child (
 ID CHAR(16),
-EnglishName NVARCHAR(255),
-ChineseName NVARCHAR(255),
-PinyinName NVARCHAR(255),
-Nickname NVARCHAR(255),
+EnglishName VARCHAR(255),
+ChineseName VARCHAR(255),
+PinyinName VARCHAR(255),
+Nickname VARCHAR(255),
 Sex CHAR(1),
 BirthDate DATE,
 ChildPhoto BLOB,
@@ -30,46 +30,46 @@ PRIMARY KEY (ID)
 
 CREATE TABLE IF NOT EXISTS Partner (
 ID CHAR(16),
-EnglishName NVARCHAR(255),
-ChineseName NVARCHAR(255),
-PinyinName NVARCHAR(255),
-Email NVARCHAR(255),
-Address NVARCHAR(255),
-Phone NVARCHAR(255),
+EnglishName VARCHAR(255),
+ChineseName VARCHAR(255),
+PinyinName VARCHAR(255),
+Email VARCHAR(255),
+Address VARCHAR(255),
+Phone VARCHAR(255),
 PRIMARY KEY (ID)
 )
 
 CREATE TABLE IF NOT EXISTS Specialist (
-ID CHAR(16)
-AssessmentSpecialty NVARCHAR(255),
-EnglishName NVARCHAR(255),
-ChineseName NVARCHAR(255),
-PinyinName NVARCHAR(255),
+ID CHAR(16),
+AssessmentSpecialty VARCHAR(255),
+EnglishName VARCHAR(255),
+ChineseName VARCHAR(255),
+PinyinName VARCHAR(255),
 PRIMARY KEY (ID)
 )
 
 CREATE TABLE IF NOT EXISTS AssessmentType (
-ID CHAR(16)
-EnglishName NVARCHAR(255),
-ChineseName NVARCHAR(255),
-PinyinName NVARCHAR(255),
+ID CHAR(16),
+EnglishName VARCHAR(255),
+ChineseName VARCHAR(255),
+PinyinName VARCHAR(255),
 PRIMARY KEY (ID)
 )
 
 CREATE TABLE IF NOT EXISTS MilestoneTypeCategory (
 ID CHAR(16),
-EnglishName NVARCHAR(255),
-ChineseName NVARCHAR(255),
-PinyinName NVARCHAR(255),
+EnglishName VARCHAR(255),
+ChineseName VARCHAR(255),
+PinyinName VARCHAR(255),
 PRIMARY KEY (ID)
 )
 
 CREATE TABLE IF NOT EXISTS MilestoneType (
 ID CHAR(16),
 MilestoneCategory CHAR(16),
-EnglishName NVARCHAR(255),
-ChineseName NVARCHAR(255),
-PinyinName NVARCHAR(255),
+EnglishName VARCHAR(255),
+ChineseName VARCHAR(255),
+PinyinName VARCHAR(255),
 PRIMARY KEY (ID),
 CONSTRAINT fk_MilestoneCategory 
 FOREIGN KEY (MilestoneCategory)
@@ -80,19 +80,19 @@ ON UPDATE CASCADE
 
 CREATE TABLE IF NOT EXISTS DoctorType (
 ID CHAR(16),
-DoctorType NVARCHAR(255),
+DoctorType VARCHAR(255),
 PRIMARY KEY (ID)
 )
 
 CREATE TABLE IF NOT EXISTS Doctor (
 ID CHAR(16),
 DoctorType CHAR(16),
-FacilityEnglishName NVARCHAR(255),
-FacilityChineseName NVARCHAR(255),
-FacilityPinyinName NVARCHAR(255),
-DoctorEnglishName NVARCHAR(255),
-DoctorChineseName NVARCHAR(255),
-DoctorPinyinName NVARCHAR(255),
+FacilityEnglishName VARCHAR(255),
+FacilityChineseName VARCHAR(255),
+FacilityPinyinName VARCHAR(255),
+DoctorEnglishName VARCHAR(255),
+DoctorChineseName VARCHAR(255),
+DoctorPinyinName VARCHAR(255),
 PRIMARY KEY (ID),
 CONSTRAINT fk_DoctorType 
 FOREIGN KEY (DoctorType)
@@ -103,43 +103,43 @@ ON UPDATE CASCADE
 
 CREATE TABLE IF NOT EXISTS MeasurementType (
 ID CHAR(16),
-EnglishName NVARCHAR(255),
-ChineseName NVARCHAR(255),
-PinyinName NVARCHAR(255),
-Units NVARCHAR(255),
+EnglishName VARCHAR(255),
+ChineseName VARCHAR(255),
+PinyinName VARCHAR(255),
+Units VARCHAR(255),
 PRIMARY KEY (ID)
 )
 
 CREATE TABLE IF NOT EXISTS Caregiver (
 ID CHAR(16),
-EnglishName NVARCHAR(255),
-ChineseName NVARCHAR(255),
-PinyinName NVARCHAR(255),
+EnglishName VARCHAR(255),
+ChineseName VARCHAR(255),
+PinyinName VARCHAR(255),
 PRIMARY KEY (ID)
 )
 
 CREATE TABLE IF NOT EXISTS Camp (
 ID CHAR(16),
-EnglishCampName NVARCHAR(255),
-ChineseCampName NVARCHAR(255),
-PinyinCampName NVARCHAR(255)
+EnglishCampName VARCHAR(255),
+ChineseCampName VARCHAR(255),
+PinyinCampName VARCHAR(255),
 PRIMARY KEY (ID)
 )
 
 CREATE TABLE IF NOT EXISTS Medication (
 ID CHAR(16),
-EnglishName NVARCHAR(255),
-ChineseName NVARCHAR(255),
-PinyinName NVARCHAR(255),
+EnglishName VARCHAR(255),
+ChineseName VARCHAR(255),
+PinyinName VARCHAR(255),
 DoseInMilligrams FLOAT,
 PRIMARY KEY (ID)
 )
 
 CREATE TABLE IF NOT EXISTS MedicalCondition (
 ID CHAR(16),
-EnglishName NVARCHAR(255),
-PinyinName NVARCHAR(255),
-ChineseName NVARCHAR(255),
+EnglishName VARCHAR(255),
+PinyinName VARCHAR(255),
+ChineseName VARCHAR(255),
 PRIMARY KEY (ID)
 )
 
@@ -152,7 +152,7 @@ StartDate DATE,
 EndDate DATE,
 Notes TEXT,
 Flag BOOL,
-CONSTRAINT fk_ChildID 
+CONSTRAINT fk_PartnerChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
@@ -169,7 +169,7 @@ ChildID CHAR(16),
 NoteDate DATE,
 Notes TEXT,
 Flag BOOL,
-CONSTRAINT fk_ChildID 
+CONSTRAINT fk_NoteChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
@@ -181,7 +181,7 @@ ChildID CHAR(16),
 CampID CHAR(16),
 CampStartDate DATE,
 Notes TEXT,
-CONSTRAINT fk_ChildID 
+CONSTRAINT fk_CampChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
@@ -195,12 +195,12 @@ ON UPDATE CASCADE
 
 CREATE TABLE IF NOT EXISTS ChildAssessment (
 ChildID CHAR(16),
-SpecialistID CHAR(16)
-AssessmentTypeID CHAR(16)
+SpecialistID CHAR(16),
+AssessmentTypeID CHAR(16),
 AssessmentDate DATE,
 Notes TEXT,
 Flag BOOL,
-CONSTRAINT fk_ChildID 
+CONSTRAINT fk_AssessmentChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
@@ -222,8 +222,8 @@ ChildID CHAR(16),
 CaregiverID CHAR(16),
 StartDate DATE,
 EndDate DATE,
-Notes TEXT
-CONSTRAINT fk_ChildID 
+Notes TEXT,
+CONSTRAINT fk_CareHistoryChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
@@ -237,33 +237,33 @@ ON UPDATE CASCADE
 
 CREATE TABLE IF NOT EXISTS ChildMeasurement (
 ChildID CHAR(16),
-MeasurementID CHAR(16),
+MeasurementTypeID CHAR(16),
 MeasurementDate DATE,
 MeasurementValue FLOAT,
-CONSTRAINT fk_ChildID 
+CONSTRAINT fk_MeasurementChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
-CONSTRAINT fk_MeasurementID
-FOREIGN KEY (MeasurementID)
-REFERENCES Measurement(ID)
+CONSTRAINT fk_MeasurementTypeID
+FOREIGN KEY (MeasurementTypeID)
+REFERENCES MeasurementType(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
 
 CREATE TABLE IF NOT EXISTS ChildMilestone (
 ChildID CHAR(16),
-MilestoneID CHAR(16),
+MilestoneTypeID CHAR(16),
 DateReached DATE,
-CONSTRAINT fk_ChildID 
+CONSTRAINT fk_MilestoneChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
-CONSTRAINT fk_MilestoneID
-FOREIGN KEY (MilestoneID)
-REFERENCES Milestone(ID)
+CONSTRAINT fk_MilestoneTypeID
+FOREIGN KEY (MilestoneTypeID)
+REFERENCES MilestoneType(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
@@ -273,7 +273,7 @@ ChildID CHAR(16),
 DoctorID CHAR(16),
 VisitDate DATE,
 Notes TEXT,
-CONSTRAINT fk_ChildID 
+CONSTRAINT fk_DoctorHistoryChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
@@ -287,15 +287,15 @@ ON UPDATE CASCADE
 
 CREATE TABLE IF NOT EXISTS ChildMedicalCondition (
 ChildID CHAR(16),
-ConditionID CHAR(16),
-CONSTRAINT fk_ChildID 
+MedicalConditionID CHAR(16),
+CONSTRAINT fk_MedicalConditionChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE,
-CONSTRAINT fk_ConditionID
-FOREIGN KEY (ConditionID)
-REFERENCES Condition(ID)
+CONSTRAINT fk_MedicalConditionID
+FOREIGN KEY (MedicalConditionID)
+REFERENCES MedicalCondition(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
@@ -309,7 +309,7 @@ EndDate DATE,
 Dosage1 FLOAT,
 Dosage2 FLOAT,
 Dosage3 FLOAT,
-CONSTRAINT fk_ChildID
+CONSTRAINT fk_MedicationChildID
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
