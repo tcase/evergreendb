@@ -1,5 +1,7 @@
 Notes:
     - We need to deal with the concept of flagged notes.
+        - Answer from Andrew - they just want to be able to pull up all notes with "flags"
+          set on them from the "ChildAssessments", "ChildNotes", and "ChildPartners" tables.
     - Attachments TBD
     - Photo handling TBD
 
@@ -34,7 +36,6 @@ PinyinName NVARCHAR(255),
 Email NVARCHAR(255),
 Address NVARCHAR(255),
 Phone NVARCHAR(255),
-Notes TEXT,
 PRIMARY KEY (ID)
 )
 
@@ -150,6 +151,7 @@ PartnerID CHAR(16),
 StartDate DATE,
 EndDate DATE,
 Notes TEXT,
+Flag BOOL,
 CONSTRAINT fk_ChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
@@ -166,6 +168,7 @@ CREATE TABLE IF NOT EXISTS ChildNote (
 ChildID CHAR(16),
 NoteDate DATE,
 Notes TEXT,
+Flag BOOL,
 CONSTRAINT fk_ChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
@@ -196,6 +199,7 @@ SpecialistID CHAR(16)
 AssessmentTypeID CHAR(16)
 AssessmentDate DATE,
 Notes TEXT,
+Flag BOOL,
 CONSTRAINT fk_ChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
